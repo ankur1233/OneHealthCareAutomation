@@ -1,0 +1,13 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+<!--Run Single test using extended class-->
+<suite name="OneHealthCare Automation" verbose="1">
+
+    <parameter name="URL" value="https://provider.linkhealth.com/#/" />
+
+    <test name="UserLogIn Journey">
+        <classes>
+            <class name="scripts.LogInTests" />
+        </classes>
+    </test>
+
+</suite>

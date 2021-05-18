@@ -1,0 +1,7 @@
+/target/
+.classpath
+.project
+Log.log
+.idea
+playwright-java.iml
+

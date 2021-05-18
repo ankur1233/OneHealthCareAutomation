@@ -3,16 +3,18 @@ package base;
 import com.microsoft.playwright.*;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
-import pages.SearchPage;
+import org.testng.annotations.Optional;
+import org.testng.annotations.Parameters;
+import pages.HomePage;
 
 public class BaseTests {
 
     private Browser browser;
-    protected SearchPage searchPage;
+    protected HomePage homePage;
 
     @BeforeClass
-    public void setUp(){
-
+    @Parameters({"URL"})
+    public void setUp(String url){
         //Open a browser (supports Chromium (Chrome, Edge), Firefox, and Webkit (Safari))
         browser = Playwright
                 .create()
@@ -21,8 +23,8 @@ public class BaseTests {
 
         //A single browser tab
         Page page = browser.newPage();
-        page.navigate("https://automationbookstore.dev/");
-        searchPage = new SearchPage(page);
+        page.navigate(url);
+        homePage = new HomePage(page);
     }
 
     @AfterClass
