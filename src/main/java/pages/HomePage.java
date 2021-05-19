@@ -1,5 +1,6 @@
 package pages;
 
+import com.microsoft.playwright.Frame;
 import com.microsoft.playwright.Page;
 
 import java.util.List;
@@ -21,16 +22,76 @@ public class HomePage {
     private String menu = "xpath=//a[@title='Menu']";
     private String signOut = "xpath=//span[text()='Sign Out']";
 
+    private String UnitedHeathCareBtn = "id=action-button";
+    private  String eligibility = "xpath=//div[text()='Eligibility']";
+
+    private String memberID = "id=eligibility-memberid-input";
+    private String dob = "id=eligibility-dateofbirth-input";
+    private String elbStartDate = "id=startdate-input";
+    private String elbBtn = "id=submit-search-button";
+
+    private String elbDetailsPage = "//h1[text()='Eligibility Details']";
+
 
 
     public HomePage(Page page){
         this.page = page;
     }
 
+
+    public HomePage eligibilityDetailsShouldVisible() throws InterruptedException {
+        page.waitForSelector(elbDetailsPage,new Page.WaitForSelectorOptions().withState(ATTACHED));
+        Thread.sleep(2000);
+        return this;
+    }
+
     public HomePage clickOnSignIn() throws InterruptedException {
         page.click(logInBtn);
         page.waitForSelector(userName,new Page.WaitForSelectorOptions().withState(ATTACHED));
         //page.wait(5000);
+        return this;
+    }
+
+
+    public HomePage navigateToUnitedHeathCarePage() throws InterruptedException {
+        Thread.sleep(7000);
+        Frame c=  page.frameByUrl("https://apps.linkhealth.com/seamless-digital-tile/index.html");
+        Thread.sleep(1000);
+        if(c!=null){
+            c.click(UnitedHeathCareBtn);
+            page.waitForSelector(memberID,new Page.WaitForSelectorOptions().withState(ATTACHED));
+
+        }
+        Thread.sleep(2);
+        System.out.println("Tets");
+           return this;
+    }
+
+    public HomePage clickOnEligibilityTab() throws InterruptedException {
+        page.waitForSelector(eligibility,new Page.WaitForSelectorOptions().withState(ATTACHED));
+        page.click(eligibility);
+        return this;
+    }
+
+    public HomePage fillEligibilityBenefitsForm(String a, String b, String c) throws InterruptedException {
+
+        //page.waitForSelector(elbDate,new Page.WaitForSelectorOptions().withState(ATTACHED));
+        Thread.sleep(2000);
+        page.fill(memberID, a);
+        Thread.sleep(1000);
+        page.fill(dob,b);
+        Thread.sleep(1000);
+        page.fill(elbStartDate,c);
+        Thread.sleep(1000);
+
+
+        return this;
+    }
+
+    public HomePage clickOnEligibility() throws InterruptedException {
+        //Thread.sleep(2000);
+        page.click(elbBtn);
+        page.waitForSelector(elbDetailsPage,new Page.WaitForSelectorOptions().withState(ATTACHED));
         return this;
     }
 

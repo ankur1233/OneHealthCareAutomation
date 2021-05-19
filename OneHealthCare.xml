@@ -6,7 +6,7 @@
 
     <test name="UserLogIn Journey">
         <classes>
-            <class name="scripts.LogInTests" />
+            <class name="scripts.OneHearthCareTestScripts" />
         </classes>
     </test>
 
