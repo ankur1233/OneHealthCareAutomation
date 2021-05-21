@@ -99,7 +99,7 @@ public class OneHearthCareTestScripts extends BaseTests {
 
 
     @Test(priority = 8)
-    public void cosmosDelegateMemberIdDoB() throws InterruptedException {
+    public void verifyCosmosDelegateMemberIdDoB() throws InterruptedException {
         homePage.clickOnPolicesTab().clickOnViewIDCard().
                 memberCardShouldBeVisible().clickOnClose();
 
