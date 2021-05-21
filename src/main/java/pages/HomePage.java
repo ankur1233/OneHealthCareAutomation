@@ -31,11 +31,72 @@ public class HomePage {
     private String elbBtn = "id=submit-search-button";
 
     private String elbDetailsPage = "//h1[text()='Eligibility Details']";
+    private String cardDetails = "//strong[text()='View ID Card']";
+    private String benifitCard = "//button[@data-testid='benefits-accordion-header']";
+    //private String benefitsTab = "//button[text()='Detailed Benefits']";
+    private String patientDemographics = "//strong[text()='Patient Demographics']";
+    private String getPatientDemographicsTab = "//li[@data-testid='patient-demographics']";
+    private String patientName = "//h4[text()='Name']/following-sibling::b";
+    private String groupID = "//h4[text()='Group']/following-sibling::p";
+    private String  policies = "//button[@data-testid='policies-accordion-header']";
+    private String policiesTab = "//li[@data-testid='policies']";
+    private String  close  = "//button[@id='modal-close-button']";
+    private String cardIDPopUp = "//div[text()='Member ID Cards']";
+    private String benefitsTab = "//li[@data-testid='benefits']";
 
 
 
     public HomePage(Page page){
         this.page = page;
+    }
+
+    public HomePage clickOnPolicesTab() throws InterruptedException {
+        Thread.sleep(2000);
+        page.click(policiesTab);
+        page.click(policies);
+        return this;
+    }
+
+    public HomePage clickOnViewIDCard() throws InterruptedException {
+
+        page.click(cardDetails);
+        page.waitForSelector(cardIDPopUp,new Page.WaitForSelectorOptions().withState(ATTACHED));
+
+        Thread.sleep(2000);
+        return this;
+    }
+
+    public HomePage clickOnClose() throws InterruptedException {
+
+        page.click(close);
+        return this;
+    }
+
+    public boolean isBenefitsTabPresent(){
+        page.click(benefitsTab);
+        return page.isVisible(benifitCard);
+    }
+
+
+    public String  getUerName(){
+        page.click(getPatientDemographicsTab);
+        page.click(patientDemographics);
+        return  page.textContent(patientName).toLowerCase().trim();
+
+    }
+
+    public String  getGroupID(){
+        page.click(policies);
+        page.click(policiesTab);
+        return  page.textContent(groupID).toLowerCase().trim();
+
+    }
+
+    public HomePage memberCardShouldBeVisible() throws InterruptedException {
+        page.waitForSelector(cardIDPopUp,new Page.WaitForSelectorOptions().withState(ATTACHED));
+        page.isVisible(cardIDPopUp);
+        //page.click(close);
+        return this;
     }
 
 
